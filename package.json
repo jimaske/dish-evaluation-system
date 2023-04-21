@@ -1,0 +1,15 @@
+{
+  "name": "foodVoting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "@escook/request-miniprogram": "^0.2.1",
+    "@vant/weapp": "^1.10.7",
+    "dayjs": "^1.11.6",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "better-mock": "^0.3.6"
+  }
+}

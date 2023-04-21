@@ -1,17 +1,132 @@
 {
 	"pages": [{
-		"path": "pages/index/index",
-		"style": {
-			"navigationBarTitleText": "uni-app"
+			"path": "pages/index/index",
+			"style": {
+				// "navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/match/match",
+			"style": {
+				// "navigationBarTitleText": "比赛"
+				// "enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/my/my",
+			"style": {
+				// "navigationBarTitleText": "我的"
+				// "enablePullDownRefresh": false
+			}
+
 		}
+	],
+	"subPackages": [{
+		"root": "subpkg",
+		"pages": [{
+				"path": "match_detail/match_detail",
+				"style": {
+					"navigationBarTitleText": "比赛",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "login/login",
+				"style": {
+					"navigationBarTitleText": "登录",
+					"enablePullDownRefresh": false
+				}
+			}, {
+				"path": "my_star/my_star",
+				"style": {
+					"navigationBarTitleText": "我的收藏",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "vote_history/vote_history",
+				"style": {
+					"navigationBarTitleText": "历史投票",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "my_comment/my_comment",
+				"style": {
+					"navigationBarTitleText": "我的评论",
+					"enablePullDownRefresh": false
+				}
+			}
+		    ,{
+                    "path" : "edit_profile/edit_profile",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "我的资料",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+                ,{
+                    "path" : "add_Match/add_Match",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "发布赛事",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
 	}],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "菜优投",
+		"navigationBarBackgroundColor": "#2e77ed",
 		"backgroundColor": "#F8F8F8",
 		"app-plus": {
 			"background": "#efeff4"
+		},
+		"usingComponents": {
+			"van-button": "/wxcomponents/dist/button/index",
+			"van-search": "/wxcomponents/dist/search/index",
+			"van-toast": "/wxcomponents/dist/toast/index",
+			"van-dialog": "/wxcomponents/dist/dialog/index",
+			"van-field": "/wxcomponents/dist/field/index",
+			"van-notify": "/wxcomponents/dist/notify/index",
+			"van-tab": "/wxcomponents/dist/tab/index",
+			"van-tabs": "/wxcomponents/dist/tabs/index",
+			"van-collapse": "/wxcomponents/dist/collapse/index",
+			"van-collapse-item": "/wxcomponents/dist/collapse-item/index",
+			"van-icon": "/wxcomponents/dist/icon/index",
+			"van-sticky": "/wxcomponents/dist/sticky/index",
+			"van-image": "/wxcomponents/dist/image/index",
+			 "van-uploader": "/wxcomponents/dist/uploader/index",
+			 "van-overlay": "/wxcomponents/dist/overlay/index",
+			 "van-datetime-picker": "/wxcomponents/dist/datetime-picker/index",
+			 "van-popup": "/wxcomponents/dist/popup/index",
+			 "van-stepper": "/wxcomponents/dist/stepper/index"
 		}
+	},
+	"tabBar": {
+		"selectedColor": "#2e77ed",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/index.png",
+				"selectedIconPath": "static/index-active.png"
+			},
+			{
+				"pagePath": "pages/match/match",
+				"text": "赛事",
+				"iconPath": "static/match.png",
+				"selectedIconPath": "static/match-active.png"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"text": "我的",
+				"iconPath": "static/user.png",
+				"selectedIconPath": "static/user-active.png"
+			}
+		]
 	}
+
 }
