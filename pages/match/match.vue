@@ -111,18 +111,32 @@
 			let _this = getCurrentInstance();
 			let query = uni.createSelectorQuery().in(_this);
 
-
-			onShow(async() => {
+			
+			onShow(async () => {
 				userInfo.value = uni.getStorageSync('userInfo') //更新用户状态
 				kind.value = userInfo.value.status
-				matchList.value =await getMatchList()||[]
-				if (matchList.value.length>0){
+				matchList.value = await getMatchList() || []
+				if (matchList.value.length > 0) {
 					noMatchFlag.value = true
-				} 
-				else noMatchFlag.value = false
+				} else noMatchFlag.value = false
 				getContainSize()
-			})
 
+			})
+			
+			let msgFlag = computed(() => store.state.user.msgFlag)
+			// watch(msgFlag, (newValue) => {
+			// 	if (msgFlag.value) {
+			// 		uni.showTabBarRedDot({
+			// 			index: 2
+			// 		})
+			// 	} else {
+			// 		uni.hideTabBarRedDot({
+			// 			index: 2
+			// 		});
+			// 	}
+			// }, {
+			// 	immediate: true
+			// })
 
 			const store = useStore()
 			let userInfo = ref(uni.getStorageSync('userInfo'))
@@ -189,11 +203,11 @@
 							if (userInfo.value.status == 0)
 								list = formatMatchList(list)
 							return list;
-						} else{
+						} else {
 							uni.$showMsg(res.message)
 							return false
 						}
-							
+
 					}).catch((err) => {
 						console.log(err);
 						uni.$showMsg(err)

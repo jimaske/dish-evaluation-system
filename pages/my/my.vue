@@ -10,10 +10,11 @@
 				</view>
 				<view class="flex-right">
 					<view class="user-name">{{userInfo.userName}}
-					<view v-if="userInfo.status===2" class="manager-flag">
-						<van-icon size="3.5vw" name="manager-o" /><text class="flag-text" style="font-size: 24;">管理员</text>
-					</view>
-					<text class="user-level" v-if="userInfo.status===0">Lv{{userInfo.level}}</text>
+						<view v-if="userInfo.status===2" class="manager-flag">
+							<van-icon size="3.5vw" name="manager-o" /><text class="flag-text"
+								style="font-size: 24;">管理员</text>
+						</view>
+						<text class="user-level" v-if="userInfo.status===0">Lv{{userInfo.level}}</text>
 					</view>
 					<view class="user-saying">{{userInfo.signature}}</view>
 				</view>
@@ -33,11 +34,13 @@
 					<image class="collect-icon" src="../../static/my-collect.png" mode=""></image>
 					<text>我的收藏</text>
 				</view>
-				<view data-url="../../subpkg/vote_history/vote_history" v-if="userInfo.status===0" class="listItem vote-history">
+				<view data-url="../../subpkg/vote_history/vote_history" v-if="userInfo.status===0"
+					class="listItem vote-history">
 					<image class="collect-icon" src="../../static/vote-history.png" mode=""></image>
 					<text>投票历史</text>
 				</view>
-				<view data-url="../../subpkg/my_comment/my_comment" v-if="userInfo.status===0" class="listItem my-comment">
+				<view data-url="../../subpkg/my_comment/my_comment" v-if="userInfo.status===0"
+					class="listItem my-comment">
 					<image class="collect-icon" src="../../static/my-comments.png" mode=""></image>
 					<text>我的评论</text>
 				</view>
@@ -45,7 +48,8 @@
 					<image class="collect-icon" src="../../static/newMatch.png" mode=""></image>
 					<text>创建比赛</text>
 				</view>
-				<view data-url="../../subpkg/my_comment/my_comment" v-if="userInfo.status!=0" class="listItem my-comment">
+				<view data-url="../../subpkg/my_comment/my_comment" v-if="userInfo.status!=0"
+					class="listItem my-comment">
 					<image class="collect-icon" src="../../static/data.png" mode=""></image>
 					<text>比赛可视化</text>
 				</view>
@@ -58,28 +62,38 @@
 					<image class="item-icon" src="../../static/edit.png" mode=""></image>
 					<text class="item-name">编辑资料</text>
 				</view>
-				<image class="item-right" src="../../static/rightArrow.png" mode=""></image>
+				<view class="item-right">
+					<image class="rightArrow" src="../../static/rightArrow.png" mode=""></image>
+				</view>
 			</view>
-			<view class="user-item">
+			<view class="user-item" data-url="../../subpkg/my_message/my_message">
 				<view class="item-left">
 					<image class="item-icon" src="../../static/my-message.png" mode=""></image>
 					<text class="item-name">我的消息</text>
 				</view>
-				<image class="item-right" src="../../static/rightArrow.png" mode=""></image>
+				<view class="item-right">
+					<text class="badge" v-if="msgNum>0">{{msgNum}}</text>
+					<image class="rightArrow" src="../../static/rightArrow.png" mode=""></image>
+				</view>
+
 			</view>
 			<view class="user-item">
 				<view class="item-left">
 					<image class="item-icon" src="../../static/feedback.png" mode=""></image>
 					<text class="item-name">意见反馈</text>
 				</view>
-				<image class="item-right" url="../../static/rightArrow.png" mode=""></image>
+				<view class="item-right">
+					<image class="rightArrow" src="../../static/rightArrow.png" mode=""></image>
+				</view>
 			</view>
 			<view class="user-item" v-if="token" @click="logout">
 				<view class="item-left">
 					<image class="item-icon" src="../../static/setting.png" mode=""></image>
 					<text class="item-name">退出登录</text>
 				</view>
-				<image class="item-right" url="../../static/rightArrow.png" mode=""></image>
+				<view class="item-right">
+					<image class="rightArrow" src="../../static/rightArrow.png" mode=""></image>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -89,20 +103,23 @@
 	import {
 		onLoad,
 		onShow,
+
 	} from '@dcloudio/uni-app'
 	import {
-		computed
+		computed,
+		ref,
+		watch
 	} from 'vue'
 	import {
 		useStore
 	} from 'vuex'
-	import WebSocketClass from '../../utils/webSocket.js'
+
 	export default {
 		setup() {
 			const store = useStore()
-			let token = computed(() =>  store.state.user.token)
+			let token = computed(() => store.state.user.token)
 			let userInfo = computed(() => store.state.user.userInfo)
-			
+
 			function toLogin() {
 				uni.navigateTo({
 					url: "/subpkg/login/login",
@@ -114,16 +131,33 @@
 					}
 				})
 			}
-			
-			let socketObj=undefined
+
+			let msgNumber = ref(0)
+			onLoad(() => {
+				// 监听事件
+				uni.$on('socket-message', function(data) {
+					// console.log(data);
+					if (Array.isArray(data)) {
+						msgNumber.value = data.length
+
+					} else {
+						if (Array.isArray(data)) {
+							uni.setTabBarBadge({
+								index: 2,
+								text: '1'
+							})
+						}
+					}
+				});
+			})
+
 			async function getLoginStatus() {
 				const {
 					data: res
 				} = await uni.$http.get(`/loginStatus?token=${token.value}`)
 				if (res.code === 200) {
 					store.commit('user/setUserInfo', res.data.user)
-					initSocket(userInfo.value.level)
-					
+					store.dispatch('user/initSocket', res.data.user.uid)
 				} else {
 					uni.removeStorageSync('userInfo')
 					uni.removeStorageSync('token');
@@ -131,7 +165,7 @@
 					store.commit('user/setToken', null)
 				}
 			}
-			
+
 			async function logout() {
 				const {
 					data: res
@@ -143,9 +177,8 @@
 					store.commit('user/setToken', null)
 					closeSocket()
 				}
-
 			}
-			
+
 			function isLogin(e) {
 				if (!token.value) {
 					toLogin()
@@ -157,50 +190,94 @@
 					}
 				}
 			}
-			
+
+			let msgFlag = computed(() => store.state.user.msgFlag)
+
+			// watch(msgFlag, (newValue) => {
+			// 	// console.log(getCurrentPages()[0].route);
+			// 	if (msgFlag.value) {
+			// 		uni.showTabBarRedDot({
+			// 			index: 2
+			// 		})
+			// 	} else {
+			// 		uni.hideTabBarRedDot({
+			// 			index: 2
+			// 		});
+
+			// 	}
+			// }, {
+			// 	immediate: true
+			// })
+
+			let showFlag = computed(() => store.state.user.showFlag)
 			onShow(() => {
-				// console.log(1);
-				if (token.value)
-					getLoginStatus()
+				if (showFlag.value) {
+					if (msgFlag.value) {
+						uni.showTabBarRedDot({
+							index: 2
+						})
+					} else {
+						uni.hideTabBarRedDot({
+							index: 2
+						});
+					}
+				}
 			})
-			
+
+			let msgList = computed(() => store.state.user.msgList)
+			let msgNum = computed(() => store.getters['user/getMsgNum'])
+
+			watch(msgList, (newValue) => {
+				console.log(newValue);
+			})
 			// WebSocket实例化
-			function initSocket(userId){// userId => 用户id
-			    if(userId){
-			        if (socketObj) {
-			            // 如果sockt实例未连接
-			            if (socketObj.isConnect) {
-			               socketObj.initSocket()
-			            }
-			        } else {
-			            // 如果没有sockt实例，则创建
-			            socketObj = new WebSocketClass(userId,60)
-			            socketObj.initSocket()
-			        }
-			    }
+			function initSocket(userId) { // userId => 用户id
+				if (userId) {
+					if (socketObj) {
+						// 如果sockt实例未连接
+						if (socketObj.isConnect) {
+							socketObj.initSocket()
+						}
+					} else {
+						// 如果没有sockt实例，则创建
+						socketObj = new WebSocketClass(userId, 60)
+						socketObj.initSocket()
+					}
+				}
 			}
-			
+
 			// 关闭WebSocket
 			function closeSocket() {
-			    if(socketObj && socketObj.isConnect){
-			       socketObj.closeSocket()
-			    }
+				if (socketObj && socketObj.isConnect) {
+					socketObj.closeSocket()
+				}
 			}
-			
-			
+
+
 			return {
 				token,
 				toLogin,
 				userInfo,
 				isLogin,
-				logout
-				
+				logout,
+				msgNumber,
+				msgList,
+				msgNum
+
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	.badge {
+		display: inline-block;
+		padding: 0 20rpx;
+		background-color: red;
+		border-radius: 100px;
+		color: #fff;
+	}
+
 	.content-top {
 		position: relative;
 		height: 350rpx;
@@ -237,12 +314,14 @@
 					font-size: 34rpx;
 					color: #fff;
 					margin-bottom: 10rpx;
-					.manager-flag{
-						.flag-text{
+
+					.manager-flag {
+						.flag-text {
 							// font-weight: 700;
 							font-size: 28rpx;
 						}
 					}
+
 					.user-level {
 						padding-left: 15rpx;
 						font-size: 24rpx;
@@ -332,8 +411,13 @@
 			}
 
 			.item-right {
-				width: 40rpx;
-				height: 40rpx;
+				display: flex;
+				align-items: center;
+
+				.rightArrow {
+					width: 40rpx;
+					height: 40rpx;
+				}
 			}
 
 		}

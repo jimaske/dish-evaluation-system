@@ -75,6 +75,15 @@
                 }
                 
                 }
+                ,{
+                    "path" : "my_message/my_message",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
             ]
 	}],
 	"globalStyle": {
@@ -103,7 +112,8 @@
 			 "van-overlay": "/wxcomponents/dist/overlay/index",
 			 "van-datetime-picker": "/wxcomponents/dist/datetime-picker/index",
 			 "van-popup": "/wxcomponents/dist/popup/index",
-			 "van-stepper": "/wxcomponents/dist/stepper/index"
+			 "van-stepper": "/wxcomponents/dist/stepper/index",
+			 "van-tag": "/wxcomponents/dist/tag/index"
 		}
 	},
 	"tabBar": {

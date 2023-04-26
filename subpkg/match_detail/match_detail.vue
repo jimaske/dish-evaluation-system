@@ -123,7 +123,6 @@
 		Dialog
 	} from '/wxcomponents/dist/dialog/dialog';
 	export default {
-
 		setup() {
 			let _this = getCurrentInstance();
 
@@ -139,7 +138,6 @@
 				store.commit('match/setMid', options.mid)
 				store.dispatch('match/getMatchDetail')
 				store.dispatch('match/getMatchDishes')
-
 			})
 			let noCommentFirstShow = ref(false)
 			let screenWidth = ref(uni.getWindowInfo().windowWidth)

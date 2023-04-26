@@ -181,6 +181,7 @@ export default (option) => {
 					code: 200,
 					data: {
 						user: {
+							uid:List[userIndex].id,
 							userName: List[userIndex].userName,
 							signature: List[userIndex].signature,
 							avatarUrl: List[userIndex].avatarUrl,
@@ -243,7 +244,8 @@ export default (option) => {
 							userName: List[userIndex].userName,
 							signature: List[userIndex].signature,
 							avatarUrl: List[userIndex].avatarUrl,
-							level: List[userIndex].level
+							level: List[userIndex].level,
+							status:List[userIndex].status
 						}
 					}
 				}

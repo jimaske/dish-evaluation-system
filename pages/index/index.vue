@@ -20,15 +20,17 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<view class="comment">
 			<text class="title">每周讨论</text>
 			<view class="comment-content">
 				<view class="comment-left">
 					<text>{{weekComment.title}}</text>
 					<div class="row-button">
-						<button type="default">{{weekComment.optionFirstText}} <text>({{weekComment.optionFirstCount}})</text></button>
-						<button type="default">{{weekComment.optionSecondText}}<text>({{weekComment.optionSecondCount}})</text></button>
+						<button type="default">{{weekComment.optionFirstText}}
+							<text>({{weekComment.optionFirstCount}})</text></button>
+						<button
+							type="default">{{weekComment.optionSecondText}}<text>({{weekComment.optionSecondCount}})</text></button>
 					</div>
 
 				</view>
@@ -57,33 +59,62 @@
 
 <script>
 	import {
-			onLoad,
-			onShow,
-			onPullDownRefresh,
-			onReachBottom
-		} from '@dcloudio/uni-app'
-import { reactive ,ref} from "vue"
+		onLoad,
+		onShow,
+	} from '@dcloudio/uni-app'
+	import {
+		reactive,
+		ref,
+		computed,
+		nextTick,
+		watch
+	} from "vue"
+	import {
+		useStore
+	} from 'vuex'
 	export default {
-		setup(){
-			let swiper=ref([])
-			let weekComment=ref({})
-			let weekRecommend=ref({})
+		setup() {
+			const store = useStore()
+
+			let swiper = ref([])
+			let weekComment = ref({})
+			let weekRecommend = ref({})
 			async function getHomeInfo() {
-				const {data:res} = await uni.$http.get('/home')
+				const {
+					data: res
+				} = await uni.$http.get('/home')
 				//请求失败
 				if (res.code !== 200) return uni.$showMsg(res.message)
-			    else{
-					swiper.value=res.data.swiper
-					weekComment.value=res.data.weekComment
-					weekRecommend.value=res.data.weekRecommend
+				else {
+					swiper.value = res.data.swiper
+					weekComment.value = res.data.weekComment
+					weekRecommend.value = res.data.weekRecommend
 				}
-				  
-				
 			}
-			onLoad(()=>{
+			onLoad(() => {
 				getHomeInfo()
 			})
-			return{
+
+			onShow(() => {
+
+			})
+			let msgList = computed(() => store.state.user.msgList)
+			let msgFlag = computed(() => store.state.user.msgFlag)
+
+			// watch(msgFlag, (newValue) => {
+			// 	if (msgFlag.value) {
+			// 		uni.showTabBarRedDot({
+			// 			index: 2
+			// 		})
+			// 	} else {
+			// 		uni.hideTabBarRedDot({
+			// 			index: 2
+			// 		});
+			// 	}
+			// }, {
+			// 	immediate: true
+			// })
+			return {
 				swiper,
 				weekComment,
 				weekRecommend
@@ -101,26 +132,27 @@ import { reactive ,ref} from "vue"
 		height: 330rpx;
 		margin-bottom: 20rpx;
 
-		.swiper-item
-		{
+		.swiper-item {
 			width: 100%;
 			height: 100%;
 		}
-		
+
 	}
-	.common-use{
-		.title{
+
+	.common-use {
+		.title {
 			font-size: 34rpx;
 			padding: 0 15rpx;
 			margin-bottom: 10rpx;
 			font-weight: 600;
 		}
+
 		.navList {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-between;
 			padding: 0 15rpx;
-		
+
 			&>view {
 				position: relative;
 				width: 49%;
@@ -129,24 +161,24 @@ import { reactive ,ref} from "vue"
 				color: #fff;
 				text-align: center;
 				overflow: hidden;
-		
+
 				image {
 					width: 100%;
 					height: 130rpx;
 					border-radius: 10rpx;
 				}
-		
+
 				text {
 					font-size: 32rpx;
 					position: relative;
-					line-height:30rpx;
+					line-height: 30rpx;
 					color: #333;
 				}
 			}
-		
+
 		}
 	}
-	
+
 
 	.comment {
 		box-sizing: border-box;
@@ -245,9 +277,9 @@ import { reactive ,ref} from "vue"
 			bottom: 0;
 			right: 0;
 			// background-color: rgba(0, 0, 0, .5);
-			background-image: linear-gradient(to top, #222, transparent);//过渡效果
+			background-image: linear-gradient(to top, #222, transparent); //过渡效果
 		}
-		
+
 		.title {
 			position: absolute;
 			top: 10rpx;
@@ -261,29 +293,34 @@ import { reactive ,ref} from "vue"
 			width: 100%;
 			height: 100%;
 		}
-		.dailyRe-content{
+
+		.dailyRe-content {
 			position: absolute;
 			bottom: 10rpx;
 			left: 15rpx;
 			right: 15rpx;
 			color: #fff;
-			.detail{
+
+			.detail {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				
+
 				margin-bottom: 10rpx;
-				.name{
+
+				.name {
 					font-size: 40rpx;
 					letter-spacing: 3rpx;
 				}
-				.adr{
+
+				.adr {
 					font-size: 26rpx;
 					letter-spacing: 5rpx;
 					color: #eee;
 				}
 			}
-			.food-recommend{
+
+			.food-recommend {
 				padding: 15rpx 0;
 				color: #cecece;
 			}

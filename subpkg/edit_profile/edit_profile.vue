@@ -212,11 +212,6 @@
 					getUserInfo()
 					show.value = false
 				}
-				
-				
-			}
-			function noop() {
-				console.log(1);
 			}
 			return {
 				userInfo,
