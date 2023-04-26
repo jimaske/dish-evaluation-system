@@ -18,12 +18,9 @@
 
 			onLaunch(function() {
 				if (token.value)
-					getLoginStatus()
+					store.dispatch('user/getLoginStatus')
 				// uni.$on('socket-message', function(data) {
-
 				// });
-
-				// getCurrentPages()[0].route
 			})
 			let msgFlag = computed(() => store.state.user.msgFlag)
 
@@ -58,23 +55,6 @@
 				// console.log('App Hide')
 			})
 
-			async function getLoginStatus() {
-
-				const {
-					data: res
-				} = await uni.$http.get(`/loginStatus?token=${token.value}`)
-				if (res.code === 200) {
-					store.commit('user/setUserInfo', res.data.user)
-					store.dispatch('user/initSocket', res.data.user.uid)
-					// initSocket(userInfo.value.level)
-
-				} else {
-					uni.removeStorageSync('userInfo')
-					uni.removeStorageSync('token');
-					store.commit('user/setUserInfo', {})
-					store.commit('user/setToken', null)
-				}
-			}
 		}
 
 
@@ -82,7 +62,7 @@
 </script>
 
 <style lang="scss">
-	@import "/wxcomponents/dist/common/index.wxss";
+	@import "/wxcomponents/vant/common/index.wxss";
 
 	page {
 		font-size: 3.6vw;

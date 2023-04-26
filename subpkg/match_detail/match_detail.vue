@@ -118,11 +118,12 @@
 	} from 'vuex'
 	import {
 		Toast
-	} from '/wxcomponents/dist/toast/toast';
+	} from '/wxcomponents/vant/toast/toast';
 	import {
 		Dialog
-	} from '/wxcomponents/dist/dialog/dialog';
+	} from '/wxcomponents/vant/dialog/dialog';
 	export default {
+
 		setup() {
 			let _this = getCurrentInstance();
 
@@ -138,6 +139,7 @@
 				store.commit('match/setMid', options.mid)
 				store.dispatch('match/getMatchDetail')
 				store.dispatch('match/getMatchDishes')
+
 			})
 			let noCommentFirstShow = ref(false)
 			let screenWidth = ref(uni.getWindowInfo().windowWidth)
@@ -281,74 +283,75 @@
 				});
 			}
 			async function onok(ev) {
-				const {
-					data: res
-				} = await uni.$http.post('/uploadAvatar')
-				// console.log(res)
-				if (res.code == 200) {
-					url.value = ""
-					dish.value.imgUrl = "../../static/logo.png"
-				} else {
-					url.value = ""
-					Toast({
-						type: 'fail',
-						message: res.message,
-						duration: 1000,
-					});
-				}
-				// uni.uploadFile({
-				// 	//请求的url接口地址
-				// 	url: '/upload',
-				// 	// formData: {
-				// 	// 请求中接口额外的参数
-				// 	// 	id: ''
-				// 	// },
-				// 	fileType: 'image', //图片类型
-				// 	filePath: ev.path, //哪张图片
-				// 	name: 'file', //对应接口的文件名称
-				// 	header: { //请求头
-				// 		"Content-Type": "multipart/form-data"
-				// 	},
-				// 	success: async ({
-				// 		data: res
-				// 	}) => {
-				// 		//成功的回调
-				// 		//一般用于重新获取数据渲染页面
-				// 		console.log(res)
-				// 		if (res.code == 200) {
-				// 			match.value.imgUrl=res.data.imgUrl
-				// 			url.value = "" // url设置为空，隐藏控件
-				// 		} else {
-				// 			url.value = ""
-				// 			Toast({
-				// 				type: 'fail',
-				// 				message: res.message,
-				// 				duration: 1000,
-				// 			});
-				// 		}
-				// 	},
-				// 	fail: (err) => {
-				// 		console.log(err.errMsg);
-				// 		url.value = ""
-				// 		Notify({
-				// 			message: err.errMsg,
-				// 			background: '#f14b4b',
-				// 			color: '#ffffff',
-				// 			duration: 1500,
-				// 		});
-				// 	}
-				// })
+				// const {
+				// 	data: res
+				// } = await uni.$http.post('/uploadAvatar')
+				// // console.log(res)
+				// if (res.code == 200) {
+				// 	url.value = ""
+				// 	dish.value.imgUrl = "../../static/logo.png"
+				// } else {
+				// 	url.value = ""
+				// 	Toast({
+				// 		type: 'fail',
+				// 		message: res.message,
+				// 		duration: 1000,
+				// 	});
+				// }
+				uni.uploadFile({
+					//请求的url接口地址
+					url: 'http://127.0.0.1:8080/upload',
+					// formData: {
+					// 请求中接口额外的参数
+					// 	id: ''
+					// },
+					fileType: 'image', //图片类型
+					filePath: ev.path, //哪张图片
+					name: 'file', //对应接口的文件名称
+					header: { //请求头
+						"Content-Type": "multipart/form-data"
+					},
+					success: async ({
+						data: res
+					}) => {
+						//成功的回调
+						//一般用于重新获取数据渲染页面
+						console.log(res)
+						res = JSON.parse(res)
+						if (res.code == 200) {
+							dish.value.imgUrl=res.data.imgUrl
+							url.value = "" // url设置为空，隐藏控件
+						} else {
+							url.value = ""
+							Toast({
+								type: 'fail',
+								message: res.message,
+								duration: 1000,
+							});
+						}
+					},
+					fail: (err) => {
+						console.log(err.errMsg);
+						url.value = ""
+						Notify({
+							message: err.errMsg,
+							background: '#f14b4b',
+							color: '#ffffff',
+							duration: 1500,
+						});
+					}
+				})
 			}
 
-			
+
 			async function submit() {
 				if (isEdit.value) {
 					const {
 						data: res
 					} = await uni.$http.post('/updateDish', {
-						dish: {
-							...dish.value
-						}
+
+						...dish.value
+
 					})
 					console.log(res);
 					if (res.code === 200) {
@@ -370,9 +373,8 @@
 					const {
 						data: res
 					} = await uni.$http.post('/setDish', {
-						dish: {
-							...dish.value
-						}
+						...dish.value
+
 					})
 					if (res.code === 200) {
 						Toast({

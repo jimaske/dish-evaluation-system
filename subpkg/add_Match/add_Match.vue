@@ -71,10 +71,10 @@
 		reactive,
 		toRefs
 	} from 'vue'
-	import Notify from '/wxcomponents/dist/notify/notify';
+	import Notify from '/wxcomponents/vant/notify/notify';
 	import {
 		Toast
-	} from '/wxcomponents/dist/toast/toast';
+	} from '/wxcomponents/vant/toast/toast';
 	export default {
 		setup() {
 			let userInfo = uni.getStorageSync('userInfo')
@@ -131,63 +131,65 @@
 				});
 			}
 			async function onok(ev) {
-				const {
-					data: res
-				} = await uni.$http.post('/uploadAvatar')
-				// console.log(res)
-				if (res.code == 200) {
-					url.value = ""
-					match.value.posterUrl = "../../static/logo.png"
-				} else {
-					url.value = ""
-					Toast({
-						type: 'fail',
-						message: res.message,
-						duration: 1000,
-					});
-				}
-				// uni.uploadFile({
-				// 	//请求的url接口地址
-				// 	url: '/upload',
-				// 	// formData: {
-				// 	// 请求中接口额外的参数
-				// 	// 	id: ''
-				// 	// },
-				// 	fileType: 'image', //图片类型
-				// 	filePath: ev.path, //哪张图片
-				// 	name: 'file', //对应接口的文件名称
-				// 	header: { //请求头
-				// 		"Content-Type": "multipart/form-data"
-				// 	},
-				// 	success: async ({
-				// 		data: res
-				// 	}) => {
-				// 		//成功的回调
-				// 		//一般用于重新获取数据渲染页面
-				// 		console.log(res)
-				// 		if (res.code == 200) {
-				// 			match.value.posterUrl=res.data.imgUrl
-				// 			url.value = "" // url设置为空，隐藏控件
-				// 		} else {
-				// 			url.value = ""
-				// 			Toast({
-				// 				type: 'fail',
-				// 				message: res.message,
-				// 				duration: 1000,
-				// 			});
-				// 		}
-				// 	},
-				// 	fail: (err) => {
-				// 		console.log(err.errMsg);
-				// 		url.value = ""
-				// 		Notify({
-				// 			message: err.errMsg,
-				// 			background: '#f14b4b',
-				// 			color: '#ffffff',
-				// 			duration: 1500,
-				// 		});
-				// 	}
-				// })
+				// const {
+				// 	data: res
+				// } = await uni.$http.post('/uploadAvatar')
+				// // console.log(res)
+				// if (res.code == 200) {
+				// 	url.value = ""
+				// 	match.value.posterUrl = "../../static/logo.png"
+				// } else {
+				// 	url.value = ""
+				// 	Toast({
+				// 		type: 'fail',
+				// 		message: res.message,
+				// 		duration: 1000,
+				// 	});
+				// }
+				uni.uploadFile({
+					//请求的url接口地址
+					url: 'http://127.0.0.1:8080/upload',
+					// formData: {
+					// 请求中接口额外的参数
+					// 	id: ''
+					// },
+					fileType: 'image', //图片类型
+					filePath: ev.path, //哪张图片
+					name: 'file', //对应接口的文件名称
+					header: { //请求头
+						"Content-Type": "multipart/form-data"
+					},
+					success: async ({
+						data: res
+					}) => {
+						//成功的回调
+						//一般用于重新获取数据渲染页面
+						console.log(res)
+						res = JSON.parse(res)
+						if (res.code == 200) {
+							match.value.posterUrl = res.data.imgUrl
+							url.value = "" // url设置为空，隐藏控件
+						} else {
+							url.value = ""
+							Toast({
+								type: 'fail',
+								message: res.message,
+								duration: 1000,
+							});
+						}
+					},
+					fail: (err) => {
+						console.log(url.value);
+						console.log(err.errMsg);
+						url.value = ""
+						Notify({
+							message: err.errMsg,
+							background: '#f14b4b',
+							color: '#ffffff',
+							duration: 1500,
+						});
+					}
+				})
 			}
 
 			function oncancel() {
@@ -208,7 +210,7 @@
 			function selectorStartTime() {
 
 				minDate.value = new Date().getTime()
-				if (match.value.startTime>0&&match.value.startTime < minDate.value) {
+				if (match.value.startTime > 0 && match.value.startTime < minDate.value) {
 					minDate.value = match.value.startTime
 				}
 				selectTimeValue.value = match.value.startTime
@@ -249,7 +251,7 @@
 			}
 
 			function onChange(event) {
-				match.votableNumber = event.detail
+				match.value.votableNumber = event.detail
 			}
 
 			async function submit() {
@@ -258,9 +260,8 @@
 					const {
 						data: res
 					} = await uni.$http.post('/setMatch', {
-						match: {
-							...match.value
-						}
+						...match.value
+
 					})
 					if (res.code === 200) {
 						Toast({
@@ -277,9 +278,8 @@
 					const {
 						data: res
 					} = await uni.$http.post('/updateMatch', {
-						match: {
-							...match.value
-						}
+						...match.value
+
 					})
 					console.log(res);
 					if (res.code === 200) {

@@ -2,8 +2,7 @@
 	<van-notify id="van-notify" />
 	<view class="login-page">
 		<view class="login-top">
-			<image class="login-bg" src="../../static/login-bg.jpg" mode=""></image>
-			<text class="logo-name">菜优投</text>
+			<image class="login-bg" src="../../static/login-bg.png" mode=""></image>
 			<view class="btn">
 				<text class="btn-text login-btn" :class="{active:isLogin}" @click="isLogin=true">登录</text>
 				<text class="btn-text register-btn" :class="{active:!isLogin}" @click="isLogin=false">注册</text>
@@ -35,7 +34,7 @@
 	import {
 		useStore
 	} from 'vuex'
-	import Notify from '/wxcomponents/dist/notify/notify';
+	import Notify from '/wxcomponents/vant/notify/notify';
 	export default {
 		setup() {
 			const store = useStore()
@@ -77,6 +76,7 @@
 								uni.setStorageSync('token', res.data.token)
 								store.commit('user/setToken', res.data.token)
 								store.commit('user/setUserStatus', res.data.status)
+								store.dispatch('user/getLoginStatus')
 								navigateBack()
 							} else {
 								console.log("账号或密码错误");

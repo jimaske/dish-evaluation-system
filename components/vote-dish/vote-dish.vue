@@ -3,7 +3,7 @@
 		<view class="addDish" @click="addDish" v-if="userInfo.status==1">
 			<van-icon name="add-o" color="#888" size="32rpx" /> 新增参赛作品
 		</view>
-		<view class="vote-item" :class="{voted:item.isVote}" v-for="(item,index) in dishList" :key="item.id">
+		<view class="vote-item" :class="{voted:item.voteFlag}" v-for="(item,index) in dishList" :key="item.id">
 			<view class="content-left">
 				<image class="foodPicture" :src="item.imgUrl" mode=""></image>
 			</view>
@@ -15,31 +15,31 @@
 				<view class="dishDescription">
 					<text class="dishDescription-text">{{item.dishDescription}}</text>
 				</view>
-				<view class="user-comment" v-if="item.hotCommond!=''">
+				<view class="user-comment" v-if="item.hotComment!=''">
 					<!-- <image class="user-avl" src="../../static/logo.png" mode=""></image> -->
-					<text class="comment-text">{{item.hotCommond}}</text>
+					<text class="comment-text">{{"“"+item.hotComment+"”"}}</text>
 				</view>
 			</view>
 			<view class="content-right">
-				<view class="vote" v-if="userInfo.status!=2" :data-vote="[item.did,index]">
+				<view class="vote" v-if="userInfo.status!=2&&userInfo.status!=1" :data-vote="[item.did,index]">
 					<button class="vote-btn" type="default" plain>
 						<image class="vote-icon" src="../../static/vote-icon.png"></image>
 					</button>
 					<text class="voteCount-text">{{item.voteCount}}</text>
 				</view>
-
-				<view class="comment" v-if="userInfo.status!=2" :data-comment="item.did">
-					<button class="comment-btn" type="default" plain>
-						<image class="comment-icon" src="../../static/comment-icon.png" mode=""></image>
-					</button>
-					<text class="voteCount-text">{{item.commendCount}}</text>
-				</view>
-				<view v-if="userInfo.status===2" class="edit" :data-edit="item.did">
+				<view v-else class="edit" :data-edit="item.did">
 					<button class="edit-btn" type="default" plain>
 						<image class="edit-icon" src="../../static/edit3.png"></image>
 					</button>
 				</view>
-				<view v-if="userInfo.status===2" class="delete" :data-delete="item.did">
+				<view class="comment" v-if="userInfo.status!=2&&userInfo.status!=1" :data-comment="item.did">
+					<button class="comment-btn" type="default" plain>
+						<image class="comment-icon" src="../../static/comment-icon.png" mode=""></image>
+					</button>
+					<text class="voteCount-text">{{item.commentCount}}</text>
+				</view>
+				
+				<view v-else class="delete" :data-delete="item.did">
 					<button class="delete-btn" type="default" plain>
 						<image class="delete-icon" src="../../static/delete.png"></image>
 					</button>
@@ -63,10 +63,10 @@
 	} from "vue";
 	import {
 		Toast
-	} from '/wxcomponents/dist/toast/toast';
+	} from '/wxcomponents/vant/toast/toast';
 	import {
 		Dialog
-	} from '/wxcomponents/dist/dialog/dialog';
+	} from '/wxcomponents/vant/dialog/dialog';
 	import {
 		onLoad
 	} from '@dcloudio/uni-app'
@@ -76,8 +76,10 @@
 		props: ["votableNumber"],
 		emits: ["toComment", "setSwiperHeight", "editDish"],
 		setup(props, context) {
-			let userInfo = uni.getStorageSync('userInfo')
 			const store = useStore();
+
+			let userInfo = computed(() => store.state.user.userInfo)
+
 			let dishList = computed(() => store.state.match.dishList);
 
 			let _this = getCurrentInstance();
@@ -127,7 +129,7 @@
 							message: '票数已投完',
 							duration: 1000,
 						});
-					} else if (dishList.value[index].isVote != true) {
+					} else if (dishList.value[index].voteFlag != true) {
 						Dialog.confirm({
 								title: '',
 								message: '确定给该作品投票吗',

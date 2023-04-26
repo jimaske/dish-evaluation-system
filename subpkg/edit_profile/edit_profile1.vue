@@ -87,24 +87,10 @@
 			}
 
 			async function onok(ev) {
-				// const {
-				// 	data: res
-				// } = await uni.$http.post('http://127.0.0.1:8080/upload')
-				// console.log(res)
-				// if (res.code == 200) {
-				// 	store.commit('user/setAvatar', res.data.avatarUrl)
-				// 	url.value = ""
-				// } else {
-				// 	url.value = ""
-				// 	Toast({
-				// 		type: 'fail',
-				// 		message: res.message,
-				// 		duration: 1000,
-				// 	});
-				// }
+				
 				uni.uploadFile({
 					//请求的url接口地址
-					url: 'http://127.0.0.1:8080/upload',
+					url: 'http://127.0.0.1:8080/uploadAvatar',
 					// formData: {
 					// 请求中接口额外的参数
 					// 	id: ''
@@ -115,26 +101,12 @@
 					header: { //请求头
 						"Content-Type": "multipart/form-data"
 					},
-					success: async ({data:res}) => {
+					success: (res) => {
 						//成功的回调
 						//一般用于重新获取数据渲染页面
-						
-						res=JSON.parse(res)
-						if (res.code == 200) {
-							const {
-								data: result
-							} = await uni.$http.post('/edit',{avatarUrl:res.data.imgUrl})
-							if(result.code===200){
-								store.commit('user/setAvatar', res.data.imgUrl)
-								
-							}else{
-								
-								Toast({
-									type: 'fail',
-									message: result.message,
-									duration: 1000,
-								});
-							}
+						let result=JSON.parse(res.data)
+						if (result.code == 200) {
+							store.commit('user/setAvatar', result.data.avatarUrl)
 							url.value = "" // url设置为空，隐藏控件
 						} else {
 							url.value = ""
@@ -146,6 +118,7 @@
 						}
 					},
 					fail: (err) => {
+						error=JSON.parse(err.data)
 						console.log(err.errMsg);
 						url.value = ""
 						Notify({
@@ -199,7 +172,7 @@
 					data: res
 				} = await uni.$http.get("/getUserInfo")
 				if (res.code === 200) {
-					store.commit('user/setUserInfo', res.data)
+					store.commit('user/setUserInfo', res.data.user)
 				}
 			}
 			

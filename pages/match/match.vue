@@ -8,6 +8,14 @@
 					<view slot="action" @tap="onClick">搜索</view>
 				</van-search>
 			</van-sticky>
+			<view class="dishListKind" v-if="userInfo.status===2" @click="switchMatchList">
+				<view class="kind" :data-kind="2" :class="{active:kind==2}">
+					我创建的
+				</view>
+				<view class="kind" :data-kind="0" :class="{active:kind==0}">
+					全部
+				</view>
+			</view>
 			<scroll-view scroll-y="true" class="scroll-container" id="scrollContainer" @scroll="handleScroll">
 				<view :style="blankFillStyle">
 					<navigator v-for="(item,index) in showDataList" :key="item.mid" hover-class="none"
@@ -43,7 +51,7 @@
 								</view>
 
 								<view class="user-comment" v-if="userInfo.status!=2">
-									<view class="comment-text">{{item.hotCommond}}</view>
+									<view class="comment-text">{{"“"+item.hotComment+"”"}}</view>
 								</view>
 
 							</view>
@@ -63,14 +71,7 @@
 				</view>
 			</scroll-view>
 		</view>
-		<view class="dishListKind" v-if="userInfo.status===2" @click="switchMatchList">
-			<view class="kind" :data-kind="2" :class="{active:kind==2}">
-				我创建的
-			</view>
-			<view class="kind" :data-kind="0" :class="{active:kind==0}">
-				全部
-			</view>
-		</view>
+		
 
 
 
@@ -105,7 +106,7 @@
 	import throttle from "../../utils/throttle.js"
 	import {
 		Dialog
-	} from '/wxcomponents/dist/dialog/dialog';
+	} from '/wxcomponents/vant/dialog/dialog';
 	export default {
 		setup() {
 			let _this = getCurrentInstance();
@@ -113,7 +114,6 @@
 
 			
 			onShow(async () => {
-				userInfo.value = uni.getStorageSync('userInfo') //更新用户状态
 				kind.value = userInfo.value.status
 				matchList.value = await getMatchList() || []
 				if (matchList.value.length > 0) {
@@ -139,14 +139,14 @@
 			// })
 
 			const store = useStore()
-			let userInfo = ref(uni.getStorageSync('userInfo'))
+			let userInfo = computed(() => store.state.user.userInfo)
 
 			let kind = ref(userInfo.value.status)
 
-			function switchMatchList(e) {
+			async function switchMatchList(e) {
 				if (typeof e.target.dataset.kind === 'number') {
 					kind.value = e.target.dataset.kind
-					getMatchList()
+					matchList.value = await getMatchList()
 				}
 			}
 
@@ -154,8 +154,7 @@
 			async function onSearch(e) {
 				// Toast('搜索' + searchName.value);
 				searchName.value = e.detail.trim()
-				getMatchList()
-
+				matchList.value = await getMatchList()
 			}
 
 			function onChange(e) {
@@ -202,6 +201,7 @@
 							let list = res.data.data.matchList
 							if (userInfo.value.status == 0)
 								list = formatMatchList(list)
+								// console.log(list);
 							return list;
 						} else {
 							uni.$showMsg(res.message)
@@ -273,7 +273,7 @@
 			let endIndex = computed(() => {
 				let index = visualData.currentIndex + 2 * visualData.containSize;
 				if (!matchList.value[index]) {
-					index = matchList.value.length - 1;
+					index = matchList.value.length;
 				}
 				return index;
 			})
@@ -296,6 +296,7 @@
 
 			function getContainSize() {
 				query.select("#scrollContainer").boundingClientRect(res => {
+					console.log(res);
 					if (res && res.height != 0) {
 						visualData.containSize =
 							Math.floor(res.height / visualData.oneHight) + 2;

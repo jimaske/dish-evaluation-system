@@ -175,7 +175,7 @@
 					uni.removeStorageSync('userInfo');
 					store.commit('user/setUserInfo', {})
 					store.commit('user/setToken', null)
-					closeSocket()
+					store.dispatch('user/closeSocket')
 				}
 			}
 
@@ -192,22 +192,6 @@
 			}
 
 			let msgFlag = computed(() => store.state.user.msgFlag)
-
-			// watch(msgFlag, (newValue) => {
-			// 	// console.log(getCurrentPages()[0].route);
-			// 	if (msgFlag.value) {
-			// 		uni.showTabBarRedDot({
-			// 			index: 2
-			// 		})
-			// 	} else {
-			// 		uni.hideTabBarRedDot({
-			// 			index: 2
-			// 		});
-
-			// 	}
-			// }, {
-			// 	immediate: true
-			// })
 
 			let showFlag = computed(() => store.state.user.showFlag)
 			onShow(() => {
@@ -247,11 +231,7 @@
 			}
 
 			// 关闭WebSocket
-			function closeSocket() {
-				if (socketObj && socketObj.isConnect) {
-					socketObj.closeSocket()
-				}
-			}
+			
 
 
 			return {

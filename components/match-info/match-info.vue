@@ -28,7 +28,7 @@
 			</view>
 			<view class="sponsor">
 				<text class="text">主办方：{{matchInfo.matchCreator}}</text>
-				<button v-if="!matchInfo.isStar" class="collect-btn" size="mini" @click="starMatch">添加收藏</button>
+				<button v-if="!matchInfo.starFlag" class="collect-btn" size="mini" @click="starMatch">添加收藏</button>
 				<button v-else class="collected-btn" size="mini" @click="cancelStarMatch">已收藏</button>
 			</view>
 			<view class="match-preview">
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-	import {Toast} from '/wxcomponents/dist/toast/toast';
+	import {Toast} from '/wxcomponents/vant/toast/toast';
 	import {countDown} from "../../utils/time.js"
 	import {
 		useStore
@@ -105,7 +105,7 @@
 				const {
 					data: res
 				} = await uni.$http.post(`/starMatch`, {
-					mid: matchInfo.value.id
+					mid: matchInfo.value.mid
 				})
 				if(res.code==200){
 					store.dispatch('match/getMatchDetail')
@@ -122,7 +122,7 @@
 				const {
 					data: res
 				} = await uni.$http.post(`/cancelStarMatch`, {
-					mid: matchInfo.value.id
+					mid: matchInfo.value.mid
 				})
 				console.log(res);
 				if(res.code==200){

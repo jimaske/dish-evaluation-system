@@ -21,14 +21,14 @@
 						</view>
 						<view class="bottom-content">
 							<navigator class="matchName" :url="`../match_detail/match_detail?mid=${item.mid}`">
-								{{item.matchName}}<text class="dishName" v-if="item.dishName!=''">-{{item.dishName}}
+								{{item.linkMatchName}}<text class="dishName" v-if="item.linkDishName">-{{item.linkDishName}}
 								</text>
 								<van-icon custom-style="border: 1px solid #ad3718;margin-left: 8rpx;" name="guide-o" />
 							</navigator>
 							<view class="button-box">
 								<view class="like btn" :data-like="item.cid">
 									<van-icon size="6vw" :info="item.likeCount" custom-style="margin-right:16rpx;"
-										color="#1271ff" v-if="item.isLiked" name="good-job" />
+										color="#1271ff" v-if="item.likeFlag" name="good-job" />
 									<van-icon size="6vw" :info="item.likeCount" custom-style="margin-right:16rpx;"
 										v-else name="good-job-o" />
 								</view>
@@ -58,10 +58,10 @@
 	} from 'vuex';
 	import {
 		Dialog
-	} from '/wxcomponents/dist/dialog/dialog';
+	} from '/wxcomponents/vant/dialog/dialog';
 	import {
 		Toast
-	} from '/wxcomponents/dist/toast/toast';
+	} from '/wxcomponents/vant/toast/toast';
 	export default {
 		setup() {
 			const store = useStore()
@@ -119,8 +119,8 @@
 				let commentIndex = commentList.value.findIndex((item, index) => {
 					return item.cid === cid
 				})
-				//根据isLiked属性判断用户是点赞还是取消点赞
-				if (commentList.value[commentIndex].isLiked) {
+				//根据likeFlag属性判断用户是点赞还是取消点赞
+				if (commentList.value[commentIndex].likeFlag) {
 					const {
 						data: res
 					} = await uni.$http.post('/cancelCommentLike', {

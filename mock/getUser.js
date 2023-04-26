@@ -28,7 +28,7 @@ let dishList = [{
 let matchList = [{
 	mid: 1000010,
 	title: "南邮“面王”评比大赛",
-},{
+}, {
 	mid: 1000001,
 	matchName: "甜到我心里"
 }, {
@@ -49,7 +49,7 @@ let List = [{
 		avatarUrl: "https://www.helloimg.com/images/2023/01/12/oGW8eq.png",
 		userName: "会打篮球的鸡",
 		level: 5,
-		status:0,
+		status: 0,
 		signature: "一个真正点评的man",
 		account: "123456",
 		password: "e10adc3949ba59abbe56e057f20f883e",
@@ -150,7 +150,7 @@ let List = [{
 		id: 100003,
 		avatarUrl: "../../static/user-avatar2.png",
 		userName: "重庆小面（南二2楼）",
-		status:1,
+		status: 1,
 		level: 5,
 		signature: "做最好吃的小面",
 		account: "654321",
@@ -160,7 +160,7 @@ let List = [{
 		id: 100005,
 		avatarUrl: "../../static/user-avatar3.png",
 		userName: "南京邮电大学",
-		status:2,
+		status: 2,
 		account: "666666",
 		password: "f379eaf3c831b04de153469d1bec345e",
 	}
@@ -180,14 +180,12 @@ export default (option) => {
 				return {
 					code: 200,
 					data: {
-						user: {
-							uid:List[userIndex].id,
-							userName: List[userIndex].userName,
-							signature: List[userIndex].signature,
-							avatarUrl: List[userIndex].avatarUrl,
-							level: List[userIndex].level,
-							status:List[userIndex].status
-						}
+						uid: List[userIndex].id,
+						userName: List[userIndex].userName,
+						signature: List[userIndex].signature,
+						avatarUrl: List[userIndex].avatarUrl,
+						level: List[userIndex].level,
+						status: List[userIndex].status
 					}
 				}
 			else {
@@ -245,7 +243,7 @@ export default (option) => {
 							signature: List[userIndex].signature,
 							avatarUrl: List[userIndex].avatarUrl,
 							level: List[userIndex].level,
-							status:List[userIndex].status
+							status: List[userIndex].status
 						}
 					}
 				}
@@ -305,8 +303,8 @@ export default (option) => {
 					code: 500,
 					message: "删除失败"
 				}
-		} else if (reqName == 'commentDish') {//评论作品
-		console.log(option.body);
+		} else if (reqName == 'commentDish') { //评论作品
+			console.log(option.body);
 			let {
 				did,
 				mid,

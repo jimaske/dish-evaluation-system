@@ -10,7 +10,7 @@
 						<navigator class="star-item" v-for="item in starList" :key="item.mid"
 							:url="`../match_detail/match_detail?mid=${item.mid}`">
 							<view class="left-content">
-								<image class="matchImg" :src="item.imgUrl" mode=""></image>
+								<image class="matchImg" :src="item.posterUrl" mode=""></image>
 							</view>
 							<view class="right-content">
 								<view class="title">{{item.title}}</view>
@@ -54,10 +54,10 @@
 	} from 'vue'
 	import {
 		Dialog
-	} from '/wxcomponents/dist/dialog/dialog';
+	} from '/wxcomponents/vant/dialog/dialog';
 	import {
 		Toast
-	} from '/wxcomponents/dist/toast/toast';
+	} from '/wxcomponents/vant/toast/toast';
 	export default {
 
 		setup() {

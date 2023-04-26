@@ -14,7 +14,7 @@ function param2Obj(url) {
 }
 let List = [{
 	mid: 1000010,
-	title: "南邮“面王”评比大赛",
+	title: "南邮面王评比大赛",
 	startTime: 1651715800000,
 	endTime: 1671715800000,
 	posterUrl: "https://www.helloimg.com/images/2023/01/05/oCYKbT.png",
@@ -26,7 +26,7 @@ let List = [{
 	isStar: true,
 	labelKind: 0,
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南三新开的羊杂面真的巨好吃”",
+	hotComment: "南三新开的羊杂面真的巨好吃",
 	matchKind: "面食评比赛",
 	isOwn:true
 }, {
@@ -40,7 +40,7 @@ let List = [{
 	totalComments: 111,
 	labelKind: 0, //0无，1投票，2评论，3收藏
 	votableNumber: 1, //代表用户可投票数,
-	hotCommond: "“聚甜斋蛋糕永远的神，特别是新出的抹茶甜甜蛋糕”",
+	hotComment: "聚甜斋蛋糕永远的神，特别是新出的抹茶甜甜蛋糕",
 	matchDescription: "幸福就是甜品的味道;每一道甜品都有一个故事,对于学校各式各样的甜品，你最喜欢品尝哪一种，为它投上宝贵的一票吧！",
 	matchKind: "甜品评比赛"
 }, {
@@ -54,7 +54,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 1, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“新开的羊杂面真的巨好吃！”",
+	hotComment: "新开的羊杂面真的巨好吃！",
 	matchKind: "面食评比赛"
 }, {
 	mid: 1000003,
@@ -67,7 +67,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 2, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南二2楼的川菜鱼香肉丝必须有排面！”",
+	hotComment: "南二2楼的川菜鱼香肉丝必须有排面！",
 	matchKind: "特色菜评比赛"
 }, {
 	mid: 1000004,
@@ -80,7 +80,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 0, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南二1楼的夫子面每天早上人巨多。”",
+	hotComment: "南二1楼的夫子面每天早上人巨多。",
 	matchKind: "早餐评比赛"
 }, {
 	mid: 1000005,
@@ -93,12 +93,12 @@ let List = [{
 	totalComments: 101,
 	labelKind: 3, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“堡马先生也还行。”",
+	hotComment: "堡马先生也还行。",
 	matchKind: "汉堡评比赛",
 	isOwn:true
 },{
 	mid: 1000020,
-	title: "南邮“面王”评比大赛",
+	title: "南邮面王评比大赛",
 	startTime: 1651715800000,
 	endTime: 1671715800000,
 	posterUrl: "https://www.helloimg.com/images/2023/01/05/oCYKbT.png",
@@ -110,7 +110,7 @@ let List = [{
 	isStar: true,
 	labelKind: 0,
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南三新开的羊杂面真的巨好吃”",
+	hotComment: "南三新开的羊杂面真的巨好吃",
 	matchKind: "面食评比赛",
 	isOwn:true
 }, {
@@ -124,7 +124,7 @@ let List = [{
 	totalComments: 111,
 	labelKind: 0, //0无，1投票，2评论，3收藏
 	votableNumber: 1, //代表用户可投票数,
-	hotCommond: "“聚甜斋蛋糕永远的神，特别是新出的抹茶甜甜蛋糕”",
+	hotComment: "聚甜斋蛋糕永远的神，特别是新出的抹茶甜甜蛋糕",
 	matchDescription: "幸福就是甜品的味道;每一道甜品都有一个故事,对于学校各式各样的甜品，你最喜欢品尝哪一种，为它投上宝贵的一票吧！",
 	matchKind: "甜品评比赛"
 }, {
@@ -138,7 +138,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 1, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“新开的羊杂面真的巨好吃！”",
+	hotComment: "新开的羊杂面真的巨好吃！",
 	matchKind: "面食评比赛"
 }, {
 	mid: 1000023,
@@ -151,7 +151,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 2, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南二2楼的川菜鱼香肉丝必须有排面！”",
+	hotComment: "南二2楼的川菜鱼香肉丝必须有排面！",
 	matchKind: "特色菜评比赛"
 }, {
 	mid: 1000024,
@@ -164,7 +164,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 0, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南二1楼的夫子面每天早上人巨多。”",
+	hotComment: "南二1楼的夫子面每天早上人巨多。",
 	matchKind: "早餐评比赛"
 }, {
 	mid: 1000025,
@@ -177,12 +177,12 @@ let List = [{
 	totalComments: 101,
 	labelKind: 3, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“堡马先生也还行。”",
+	hotComment: "堡马先生也还行。",
 	matchKind: "汉堡评比赛",
 	isOwn:true
 },{
 	mid: 1000011,
-	title: "南邮“面王”评比大赛",
+	title: "南邮面王评比大赛",
 	startTime: 1651715800000,
 	endTime: 1671715800000,
 	posterUrl: "https://www.helloimg.com/images/2023/01/05/oCYKbT.png",
@@ -194,7 +194,7 @@ let List = [{
 	isStar: true,
 	labelKind: 0,
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南三新开的羊杂面真的巨好吃”",
+	hotComment: "南三新开的羊杂面真的巨好吃",
 	matchKind: "面食评比赛",
 	isOwn:true
 }, {
@@ -208,7 +208,7 @@ let List = [{
 	totalComments: 111,
 	labelKind: 0, //0无，1投票，2评论，3收藏
 	votableNumber: 1, //代表用户可投票数,
-	hotCommond: "“聚甜斋蛋糕永远的神，特别是新出的抹茶甜甜蛋糕”",
+	hotComment: "聚甜斋蛋糕永远的神，特别是新出的抹茶甜甜蛋糕",
 	matchDescription: "幸福就是甜品的味道;每一道甜品都有一个故事,对于学校各式各样的甜品，你最喜欢品尝哪一种，为它投上宝贵的一票吧！",
 	matchKind: "甜品评比赛"
 }, {
@@ -222,7 +222,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 1, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“新开的羊杂面真的巨好吃！”",
+	hotComment: "新开的羊杂面真的巨好吃！",
 	matchKind: "面食评比赛"
 }, {
 	mid: 1000014,
@@ -235,7 +235,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 2, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南二2楼的川菜鱼香肉丝必须有排面！”",
+	hotComment: "南二2楼的川菜鱼香肉丝必须有排面！",
 	matchKind: "特色菜评比赛"
 }, {
 	mid: 1000015,
@@ -248,7 +248,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 0, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南二1楼的夫子面每天早上人巨多。”",
+	hotComment: "南二1楼的夫子面每天早上人巨多。",
 	matchKind: "早餐评比赛"
 }, {
 	mid: 1000016,
@@ -261,12 +261,12 @@ let List = [{
 	totalComments: 101,
 	labelKind: 3, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“堡马先生也还行。”",
+	hotComment: "堡马先生也还行。",
 	matchKind: "汉堡评比赛",
 	isOwn:true
 },{
 	mid: 1000030,
-	title: "南邮“面王”评比大赛",
+	title: "南邮面王评比大赛",
 	startTime: 1651715800000,
 	endTime: 1671715800000,
 	posterUrl: "https://www.helloimg.com/images/2023/01/05/oCYKbT.png",
@@ -278,7 +278,7 @@ let List = [{
 	isStar: true,
 	labelKind: 0,
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南三新开的羊杂面真的巨好吃”",
+	hotComment: "南三新开的羊杂面真的巨好吃",
 	matchKind: "面食评比赛",
 	isOwn:true
 }, {
@@ -292,7 +292,7 @@ let List = [{
 	totalComments: 111,
 	labelKind: 0, //0无，1投票，2评论，3收藏
 	votableNumber: 1, //代表用户可投票数,
-	hotCommond: "“聚甜斋蛋糕永远的神，特别是新出的抹茶甜甜蛋糕”",
+	hotComment: "聚甜斋蛋糕永远的神，特别是新出的抹茶甜甜蛋糕",
 	matchDescription: "幸福就是甜品的味道;每一道甜品都有一个故事,对于学校各式各样的甜品，你最喜欢品尝哪一种，为它投上宝贵的一票吧！",
 	matchKind: "甜品评比赛"
 }, {
@@ -306,7 +306,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 1, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“新开的羊杂面真的巨好吃！”",
+	hotComment: "新开的羊杂面真的巨好吃！",
 	matchKind: "面食评比赛"
 }, {
 	mid: 1000033,
@@ -319,7 +319,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 2, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南二2楼的川菜鱼香肉丝必须有排面！”",
+	hotComment: "南二2楼的川菜鱼香肉丝必须有排面！",
 	matchKind: "特色菜评比赛"
 }, {
 	mid: 1000034,
@@ -332,7 +332,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 0, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南二1楼的夫子面每天早上人巨多。”",
+	hotComment: "南二1楼的夫子面每天早上人巨多。",
 	matchKind: "早餐评比赛"
 }, {
 	mid: 1000035,
@@ -345,12 +345,12 @@ let List = [{
 	totalComments: 101,
 	labelKind: 3, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“堡马先生也还行。”",
+	hotComment: "堡马先生也还行。",
 	matchKind: "汉堡评比赛",
 	isOwn:true
 },{
 	mid: 1000040,
-	title: "南邮“面王”评比大赛",
+	title: "南邮面王评比大赛",
 	startTime: 1651715800000,
 	endTime: 1671715800000,
 	posterUrl: "https://www.helloimg.com/images/2023/01/05/oCYKbT.png",
@@ -362,7 +362,7 @@ let List = [{
 	isStar: true,
 	labelKind: 0,
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南三新开的羊杂面真的巨好吃”",
+	hotComment: "南三新开的羊杂面真的巨好吃",
 	matchKind: "面食评比赛",
 	isOwn:true
 }, {
@@ -376,7 +376,7 @@ let List = [{
 	totalComments: 111,
 	labelKind: 0, //0无，1投票，2评论，3收藏
 	votableNumber: 1, //代表用户可投票数,
-	hotCommond: "“聚甜斋蛋糕永远的神，特别是新出的抹茶甜甜蛋糕”",
+	hotComment: "聚甜斋蛋糕永远的神，特别是新出的抹茶甜甜蛋糕",
 	matchDescription: "幸福就是甜品的味道;每一道甜品都有一个故事,对于学校各式各样的甜品，你最喜欢品尝哪一种，为它投上宝贵的一票吧！",
 	matchKind: "甜品评比赛"
 }, {
@@ -390,7 +390,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 1, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“新开的羊杂面真的巨好吃！”",
+	hotComment: "新开的羊杂面真的巨好吃！",
 	matchKind: "面食评比赛"
 }, {
 	mid: 1000043,
@@ -403,7 +403,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 2, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南二2楼的川菜鱼香肉丝必须有排面！”",
+	hotComment: "南二2楼的川菜鱼香肉丝必须有排面！",
 	matchKind: "特色菜评比赛"
 }, {
 	mid: 1000044,
@@ -416,7 +416,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 0, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“南二1楼的夫子面每天早上人巨多。”",
+	hotComment: "南二1楼的夫子面每天早上人巨多。",
 	matchKind: "早餐评比赛"
 }, {
 	mid: 1000045,
@@ -429,7 +429,7 @@ let List = [{
 	totalComments: 101,
 	labelKind: 3, //0无，1投票，2评论，3收藏
 	votableNumber: 2, //代表用户可投票数,
-	hotCommond: "“堡马先生也还行。”",
+	hotComment: "堡马先生也还行。",
 	matchKind: "汉堡评比赛",
 	isOwn:true
 }]
@@ -513,7 +513,7 @@ export default (option) => {
 				match.totalDishes = 0
 				match.totalVotes = 0
 				match.totalComments = 0
-				match.hotCommond = ""
+				match.hotComment = ""
 				match.labelKind = 0
 				match.mid = 1000000 + Math.round(Math.random() * 899999)
 				List.unshift(match)

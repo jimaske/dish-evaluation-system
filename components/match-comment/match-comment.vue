@@ -7,11 +7,11 @@
 				:data-did="item.did">#{{item.dishName}}</text>
 		</view>
 		<view class="comment-box" @click="likeOrComment" v-if="commentList.length!=0">
-			<view class="user-comment" v-for="item in commentList" :key="item.id">
+			<view class="user-comment" v-for="item in commentList" :key="item.cid">
 				<view class="user-info">
 					<image class="user-avl" :src="item.avatarUrl" mode=""></image>
 					<text class="user-name">{{item.userName}}</text>
-					<text v-if="item.isOwn">(我)</text>
+					<text v-if="item.ownFlag">(我)</text>
 					<!-- <text class="user-label">资深评友</text> -->
 				</view>
 				<view class="commentFood" v-if="item.linkFlag">
@@ -23,12 +23,12 @@
 				<view class="comment-info">
 					<text class="comment-date">{{item.releaseTime}}发布</text>
 					<view class="btns">
-						<view class="like btn" :data-like="item.id">
-							<van-icon name="good-job" color="#1288ff" size="5vw" v-if="item.isLike" />
+						<view class="like btn" :data-like="item.cid">
+							<van-icon name="good-job" color="#1288ff" size="5vw" v-if="item.likeFlag" />
 							<van-icon name="good-job-o" size="5vw" v-else />
 							<text class="likeCount">{{item.likeCount}}</text>
 						</view>
-						<view class="delete btn" v-if="item.isOwn" :data-delete="item.id">
+						<view class="delete btn" v-if="item.ownFlag" :data-delete="item.cid">
 							<van-icon name="delete-o" size="5vw" />
 						</view>
 
@@ -68,10 +68,10 @@
 	} from "../../utils/time.js"
 	import {
 		Toast
-	} from '/wxcomponents/dist/toast/toast';
+	} from '/wxcomponents/vant/toast/toast';
 	import {
 		Dialog
-	} from '/wxcomponents/dist/dialog/dialog';
+	} from '/wxcomponents/vant/dialog/dialog';
 	export default defineComponent({
 		name: "match-comment",
 		props: ["noCommentFirstShow", "commentTop"],
@@ -107,7 +107,7 @@
 				if (res.code == 200) {
 					if (res.data.commentList.length != 0) {
 						commentList.value = res.data.commentList.map((item, index) => {
-							item.releaseTime = releaseTime(item.time)
+							item.releaseTime = releaseTime(item.createTime)
 							return item
 						})
 					} else {
@@ -207,10 +207,10 @@
 			}
 			async function like(cid) {
 				let commentIndex = commentList.value.findIndex((item, index) => {
-					return item.id === cid
+					return item.cid === cid
 				})
 				//根据isLike属性判断用户是点赞还是取消点赞
-				if (commentList.value[commentIndex].isLike) {
+				if (commentList.value[commentIndex].likeFlag) {
 					const {
 						data: res
 					} = await uni.$http.post('/cancelCommentLike', {

@@ -19,7 +19,7 @@ let List = [{
 		address: "南二2楼",
 		voteCount: 72,
 		commendCount: 32,
-		hotCommond: "“兰州人表示很赞！”",
+		hotComment: "兰州人表示很赞！",
 		dishDescription: "以肉烂汤鲜,面质精细而蜚声中外，赢得了国内乃至全世界范围内食客的好评和荣誉。",
 		isVote: false //true表示这个菜品被用户投过票了
 	},
@@ -30,7 +30,7 @@ let List = [{
 		address: "南三2楼",
 		voteCount: 88,
 		commendCount: 43,
-		hotCommond: "“重庆小面yyds！”",
+		hotComment: "重庆小面yyds！",
 		dishDescription: "重庆四大特色之一。在早餐较常见。作为南方人的重庆市民普遍接受的传统面食，重庆小面因其独特口感，以辣闻名，近年来全国知名。",
 		isVote: true //true表示这个菜品被用户投过票了
 	},
@@ -41,8 +41,8 @@ let List = [{
 		address: "南二1楼",
 		voteCount: 62,
 		commendCount: 32,
-		hotCommond: "“味道真的不错。”",
-		dishDescription: "中国传统特色面食，被誉为“中国十大面条”之一",
+		hotComment: "味道真的不错。",
+		dishDescription: "中国传统特色面食，被誉为中国十大面条之一",
 		isVote: false //true表示这个菜品被用户投过票了
 	},
 	{
@@ -52,7 +52,7 @@ let List = [{
 		address: "南三2楼",
 		voteCount: 109,
 		commendCount: 62,
-		hotCommond: "“羊杂面的味道真的绝！”",
+		hotComment: "羊杂面的味道真的绝！",
 		dishDescription: "以面条，香葱主料制作的药膳。是一道具有延缓衰老功效的药膳面食，有益于补心益肾",
 		isVote: true //true表示这个菜品被用户投过票了
 	}
@@ -147,7 +147,7 @@ export default (option) => {
 				let dish ={...option.body.dish}
 				dish.voteCount = 0
 				dish.commentCount = 0
-				dish.hotCommond = ""
+				dish.hotComment = ""
 				dish.isVote = false
 				dish.did = 1000000 + Math.round(Math.random() * 899999)
 				List.unshift(dish)

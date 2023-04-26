@@ -25,6 +25,7 @@ export default {
 			if (res.code == 200) {
 				context.commit('setMatchInfo', res.data.match)
 			}
+		
 		},
 		initSocket(context, uid) { // uid => 用户id
 			if (uid) {
@@ -35,7 +36,7 @@ export default {
 					}
 				} else {
 					// 如果没有sockt实例，则创建
-					// let url=`ws://127.0.0.1:8080/${uid}`
+					// let url=`ws://127.0.0.1:8080/ws/${uid}`
 					let url = `ws://127.0.0.1:4000?uid=${uid}`
 					context.state.socketObj = new WebSocketClass({
 						url,
@@ -54,6 +55,27 @@ export default {
 					})
 					context.state.socketObj.initSocket()
 				}
+			}
+		},
+		closeSocket(context, uid) {
+			if (context.state.socketObj && context.state.socketObj.isConnect) {
+				context.state.socketObj.closeSocket()
+				context.state.socketObj=null
+			}
+		},
+		async getLoginStatus(context) {
+			const {
+				data: res
+			} = await uni.$http.get(`/loginStatus?token=${context.state.token}`)
+			if (res.code === 200) {
+				context.commit('setUserInfo', res.data)
+				context.dispatch('initSocket', res.data.uid)
+				// initSocket(userInfo.value.level)
+			} else {
+				uni.removeStorageSync('userInfo')
+				uni.removeStorageSync('token');
+				context.commit('setUserInfo', {})
+				context.commit('setToken', null)
 			}
 		}
 	},
