@@ -45,11 +45,7 @@ export default {
 							context.commit('updateMsgNumList', data)
 							data.time = Date.now()
 							context.state.msgList.unshift(data)
-							// uni.$emit("socket-message",data)
 							uni.setStorageSync('msgList', context.state.msgList)
-							// data.isNew=true
-
-							// context.state.newMsgList.push(data)
 							context.state.msgFlag = true
 						}
 					})
@@ -123,6 +119,11 @@ export default {
 			} else if (index == 1) {
 				state.msgNumList.commentList = 0
 			} else if (index == 2) {
+				state.msgNumList.dishList = 0
+			}else{
+				state.msgNumList.likeList = 0
+				state.msgNumList.voteList = 0
+				state.msgNumList.commentList = 0
 				state.msgNumList.dishList = 0
 			}
 			let sum = 0

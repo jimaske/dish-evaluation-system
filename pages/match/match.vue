@@ -124,19 +124,6 @@
 			})
 			
 			let msgFlag = computed(() => store.state.user.msgFlag)
-			// watch(msgFlag, (newValue) => {
-			// 	if (msgFlag.value) {
-			// 		uni.showTabBarRedDot({
-			// 			index: 2
-			// 		})
-			// 	} else {
-			// 		uni.hideTabBarRedDot({
-			// 			index: 2
-			// 		});
-			// 	}
-			// }, {
-			// 	immediate: true
-			// })
 
 			const store = useStore()
 			let userInfo = computed(() => store.state.user.userInfo)
@@ -201,7 +188,6 @@
 							let list = res.data.data.matchList
 							if (userInfo.value.status == 0)
 								list = formatMatchList(list)
-								// console.log(list);
 							return list;
 						} else {
 							uni.$showMsg(res.message)
@@ -296,7 +282,6 @@
 
 			function getContainSize() {
 				query.select("#scrollContainer").boundingClientRect(res => {
-					console.log(res);
 					if (res && res.height != 0) {
 						visualData.containSize =
 							Math.floor(res.height / visualData.oneHight) + 2;

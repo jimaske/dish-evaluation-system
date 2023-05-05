@@ -176,6 +176,7 @@
 					store.commit('user/setUserInfo', {})
 					store.commit('user/setToken', null)
 					store.dispatch('user/closeSocket')
+					store.commit('user/setMsgNumList', -1)
 				}
 			}
 
@@ -214,25 +215,6 @@
 			watch(msgList, (newValue) => {
 				console.log(newValue);
 			})
-			// WebSocket实例化
-			function initSocket(userId) { // userId => 用户id
-				if (userId) {
-					if (socketObj) {
-						// 如果sockt实例未连接
-						if (socketObj.isConnect) {
-							socketObj.initSocket()
-						}
-					} else {
-						// 如果没有sockt实例，则创建
-						socketObj = new WebSocketClass(userId, 60)
-						socketObj.initSocket()
-					}
-				}
-			}
-
-			// 关闭WebSocket
-			
-
 
 			return {
 				token,

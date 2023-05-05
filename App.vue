@@ -19,8 +19,6 @@
 			onLaunch(function() {
 				if (token.value)
 					store.dispatch('user/getLoginStatus')
-				// uni.$on('socket-message', function(data) {
-				// });
 			})
 			let msgFlag = computed(() => store.state.user.msgFlag)
 

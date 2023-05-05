@@ -24,7 +24,7 @@ let List = [{
 	totalComments: 98,
 	matchCreator: "南京邮电大学",
 	isStar: true,
-	labelKind: 0,
+	labelKind: 1,
 	votableNumber: 2, //代表用户可投票数,
 	hotComment: "南三新开的羊杂面真的巨好吃",
 	matchKind: "面食评比赛",
@@ -38,7 +38,7 @@ let List = [{
 	totalDishes: 30,
 	totalVotes: 338,
 	totalComments: 111,
-	labelKind: 0, //0无，1投票，2评论，3收藏
+	labelKind: 2, //0无，1投票，2评论，3收藏
 	votableNumber: 1, //代表用户可投票数,
 	hotComment: "聚甜斋蛋糕永远的神，特别是新出的抹茶甜甜蛋糕",
 	matchDescription: "幸福就是甜品的味道;每一道甜品都有一个故事,对于学校各式各样的甜品，你最喜欢品尝哪一种，为它投上宝贵的一票吧！",

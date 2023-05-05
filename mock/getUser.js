@@ -56,7 +56,7 @@ let List = [{
 		starList: [{
 			mid: 1000001, //比赛id
 			title: "甜到我心里",
-			imgUrl: "https://www.helloimg.com/images/2023/01/05/oCf51t.jpg",
+			posterUrl: "https://www.helloimg.com/images/2023/01/05/oCf51t.jpg",
 			startTime: 1670435875914,
 			endTime: 1671256000000,
 			voteCount: 338,
@@ -64,7 +64,7 @@ let List = [{
 		}, {
 			mid: 1000002, //比赛id
 			title: "面条嗦起来",
-			imgUrl: "https://www.helloimg.com/images/2023/01/05/oCYjOC.png",
+			posterUrl: "https://www.helloimg.com/images/2023/01/05/oCYjOC.png",
 			startTime: 1670635875914,
 			endTime: 1671083200000,
 			voteCount: 329,
@@ -72,7 +72,7 @@ let List = [{
 		}, {
 			mid: 1000004, //比赛id
 			title: "面条嗦起来",
-			imgUrl: "https://www.helloimg.com/images/2023/01/05/oCYVNo.png",
+			posterUrl: "https://www.helloimg.com/images/2023/01/05/oCYVNo.png",
 			startTime: 1671635875914,
 			endTime: 1673083200000,
 			voteCount: 248,
@@ -80,7 +80,7 @@ let List = [{
 		}, {
 			mid: 1000010,
 			title: "南邮“面王”评比大赛",
-			imgUrl: "https://www.helloimg.com/images/2023/01/05/oCYKbT.png",
+			posterUrl: "https://www.helloimg.com/images/2023/01/05/oCYKbT.png",
 			startTime: 1671315800000,
 			endTime: 1671715800000,
 			voteCount: 248,
@@ -117,32 +117,32 @@ let List = [{
 		commentList: [{
 				cid: 717278,
 				mid: 1000010, //比赛id
-				dishName: "炸酱面",
-				matchName: "面条嗦起来",
+				linkDishName: "炸酱面",
+				linkMatchName: "面条嗦起来",
 				time: 1672474224135,
 				commentContent: "每次打篮球回来没啥胃口，就会点一份来吃，挺不错的。",
 				likeCount: 6,
-				isLiked: false
+				likeFlag: false
 			},
 			{
 				cid: 737174,
 				mid: 1000010, //比赛id
-				dishName: "重庆小面",
-				matchName: "南邮“面王”评比大赛",
+				linkDishName: "重庆小面",
+				linkMatchName: "南邮“面王”评比大赛",
 				time: 1669436600914,
 				commentContent: "重庆小面在学校里还是非常不错滴！",
 				likeCount: 10, //点赞数
-				isLiked: true //false表示自己没有给这条评论点赞
+				likeFlag: true //false表示自己没有给这条评论点赞
 			},
 			{
 				cid: 737176,
 				mid: 1000001, //比赛id
-				dishName: "",
-				matchName: "甜到我心里",
+				linkDishName: "",
+				linkMatchName: "甜到我心里",
 				time: 1673238761000,
 				commentContent: "南二一楼那家蛋糕店没有参赛挺可惜，里面蛋糕挺好吃的！",
 				likeCount: 0, //点赞数
-				isLiked: false, //false表示自己没有给这条评论点赞
+				likeFlag: false, //false表示自己没有给这条评论点赞
 			}
 		]
 	},

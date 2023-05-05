@@ -155,7 +155,7 @@
 			}
 
 			.dishName {
-				color: #946565;
+				color: #997d5e;
 				font-size: 28rpx;
 				padding: 0 5rpx;
 				font-weight: 600;

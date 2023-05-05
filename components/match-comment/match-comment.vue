@@ -105,11 +105,13 @@
 					data: res
 				} = await uni.$http.get(`/matchComments?mid=${mid.value}&did=${did}`)
 				if (res.code == 200) {
+					console.log((res.data));
 					if (res.data.commentList.length != 0) {
 						commentList.value = res.data.commentList.map((item, index) => {
 							item.releaseTime = releaseTime(item.createTime)
 							return item
 						})
+						console.log(commentList.value);
 					} else {
 						commentList.value = []
 					}

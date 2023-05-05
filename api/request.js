@@ -1,22 +1,7 @@
-// #ifndef VUE3
-import Vue from 'vue'
-
-import Mock from './mock'
-
-import store from "./store";
-
-uni.$showMsg = function(title = "数据请求失败!", duration = 1500) {
-	uni.showToast({
-		title,
-		duration,
-		icon: 'none'
-	})
-}
 //导入网络请求的包
-import {
-	$http
-} from '@escook/request-miniprogram'
+import { $http } from '@escook/request-miniprogram'
 uni.$http = $http
+// 配置请求根路径
 $http.baseUrl = '/mock'
 $http.beforeRequest = function(options) {
 	uni.showLoading({
@@ -31,15 +16,12 @@ $http.beforeRequest = function(options) {
 		}
 	}
 }
-uni.$countDown=""
 $http.afterRequest = function(options) {
 	uni.hideLoading()
 	if (options.statusCode != 200) {
 		uni.$showMsg()
 	} else if (options.statusCode === 200 && options.data.code === 501) {
-		console.log(options);
 		let pageRoute= getCurrentPages()
-		console.log(pageRoute[pageRoute.length-1].$page.fullPath);
 		uni.$showMsg("您还没有登录！")
 		uni.redirectTo({
 			url: '/subpkg/login/login',
@@ -49,25 +31,7 @@ $http.afterRequest = function(options) {
 				})
 			}
 		});
-	}
-}
-
-
-import dayjs from 'dayjs'
-uni.$dayjs = dayjs
-
-import App from './App'
-
-
-
-import {
-	createSSRApp
-} from 'vue'
-// 不能修改导出的 createApp 方法名，不能修改从 Vue 中导入的 createSSRApp。
-export function createApp() {
-	const app = createSSRApp(App)
-	app.use(store)
-	return {
-		app
+	}else{
+		return 
 	}
 }
