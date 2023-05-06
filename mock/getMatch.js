@@ -440,7 +440,7 @@ export default (option) => {
 		if (reqName === 'matchDetail') {
 			const {
 				mid
-			} = param2Obj(option.url)
+			} =param2Obj(option.url)
 			let index = List.findIndex((item) => item.mid == mid)
 			if (index != -1) {
 				return {
@@ -454,7 +454,6 @@ export default (option) => {
 					code: 500,
 					message: "查找出错"
 				}
-
 		} else if (reqName === 'votableNumber') {
 			const {
 				mid
@@ -469,7 +468,6 @@ export default (option) => {
 				}
 			}
 		} else if (reqName === 'matches') {
-			console.log(param2Obj(option.url));
 			const {
 				searchName,
 				page = 1,
@@ -489,7 +487,7 @@ export default (option) => {
 				code: 200,
 				data: {
 					matchList: pageList,
-					listCount: mockList.length
+					listCount: pageList.length
 				}
 			}
 		}

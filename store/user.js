@@ -1,4 +1,7 @@
+import {reqGetLoginStatus} from '../api/index.js'
+
 import WebSocketClass from '../utils/webSocket.js'
+
 export default {
 	namespaced: true,
 	state: {
@@ -18,15 +21,7 @@ export default {
 		// newMsgList:uni.getStorageSync('msgList') || []
 	},
 	actions: {
-		async getMatchDetail(context, value) {
-			const {
-				data: res
-			} = await uni.$http.get(`/matchDetail?mid=${context.state.mid}`)
-			if (res.code == 200) {
-				context.commit('setMatchInfo', res.data.match)
-			}
 		
-		},
 		initSocket(context, uid) { // uid => 用户id
 			if (uid) {
 				if (context.state.socketObj) {
@@ -62,7 +57,7 @@ export default {
 		async getLoginStatus(context) {
 			const {
 				data: res
-			} = await uni.$http.get(`/loginStatus?token=${context.state.token}`)
+			} = await reqGetLoginStatus({token:context.state.token})
 			if (res.code === 200) {
 				context.commit('setUserInfo', res.data)
 				context.dispatch('initSocket', res.data.uid)

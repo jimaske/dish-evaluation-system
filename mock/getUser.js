@@ -176,7 +176,7 @@ export default (option) => {
 				token
 			} = param2Obj(option.url)
 			userIndex = userToken.indexOf(token)
-			if (userIndex != -1)
+			if (userIndex != -1) {
 				return {
 					code: 200,
 					data: {
@@ -188,7 +188,7 @@ export default (option) => {
 						status: List[userIndex].status
 					}
 				}
-			else {
+			} else {
 				return {
 					code: 501,
 					message: "未登录"

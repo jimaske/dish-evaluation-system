@@ -100,6 +100,7 @@
 </template>
 
 <script>
+	import {reqLogout} from '../../api/index.js'
 	import {
 		onLoad,
 		onShow,
@@ -136,10 +137,8 @@
 			onLoad(() => {
 				// 监听事件
 				uni.$on('socket-message', function(data) {
-					// console.log(data);
 					if (Array.isArray(data)) {
 						msgNumber.value = data.length
-
 					} else {
 						if (Array.isArray(data)) {
 							uni.setTabBarBadge({
@@ -151,25 +150,10 @@
 				});
 			})
 
-			async function getLoginStatus() {
-				const {
-					data: res
-				} = await uni.$http.get(`/loginStatus?token=${token.value}`)
-				if (res.code === 200) {
-					store.commit('user/setUserInfo', res.data.user)
-					store.dispatch('user/initSocket', res.data.user.uid)
-				} else {
-					uni.removeStorageSync('userInfo')
-					uni.removeStorageSync('token');
-					store.commit('user/setUserInfo', {})
-					store.commit('user/setToken', null)
-				}
-			}
-
 			async function logout() {
 				const {
 					data: res
-				} = await uni.$http.get("/logout")
+				} = await reqLogout()
 				if (res.code == 200) {
 					uni.removeStorageSync('token');
 					uni.removeStorageSync('userInfo');

@@ -1,3 +1,4 @@
+import {reqGetMatchDetail,reqGetMatchDishes,reqGetVotableNumber} from '../api/index.js'
 export default {
 	namespaced: true,
 	state: {
@@ -8,23 +9,22 @@ export default {
 	},
 	actions: {
 		async getMatchDetail(context, value) {
-			const {data:res} = await uni.$http.get(`/matchDetail?mid=${context.state.mid}`)
+			const {data:res} = await reqGetMatchDetail({mid:context.state.mid})
 			 if (res.code == 200) {
 				context.commit('setMatchInfo', res.data.match)
 			}
-
 		},
 		async getMatchDishes(context, value) {
 			const {
 				data: res
-			} = await uni.$http.get(`/matchDishes?mid=${context.state.mid}`)
+			} = await reqGetMatchDishes({mid:context.state.mid}) 
 			if (res.code == 200)
 				context.commit('setDishList', res.data.dishList)
 		},
 		async getVotableNumber(context, value) {
 			const {
 				data: res
-			} = await uni.$http.get(`/votableNumber?mid=${context.state.mid}`)
+			} = await reqGetVotableNumber({mid:context.state.mid})
 			if (res.code == 200)
 				context.commit('setVotableNumber', res.data.votableNumber)
 		}
@@ -50,7 +50,6 @@ export default {
 			}
 		},
 		setCommentDishId(state, value){
-			console.log(value);
 			state.commentDishId=value
 		}
 		

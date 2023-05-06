@@ -1,3 +1,5 @@
+import store from "../store/index.js";
+
 //导入网络请求的包
 import { $http } from '@escook/request-miniprogram'
 uni.$http = $http
@@ -8,12 +10,22 @@ $http.beforeRequest = function(options) {
 		title: '数据加载中...'
 	})
 	let token = store.state.user.token
+	let params=options.data.params
+	if(options.method=="GET"&&params&&params!={}){
+		let url=options.url+'?'
+		for(let key in params){
+			url+=key+'='+params[key]+'&'
+		}
+		options.url=url.slice(0,url.length-1)
+		delete options.data.params
+	}
 	if (token) {
 		// 为请求头添加身份认证字段
 		options.header = {
 			// 字段的值可以直接从 vuex 中进行获取
 			Authorization: token
 		}
+		
 	}
 }
 $http.afterRequest = function(options) {
@@ -31,7 +43,6 @@ $http.afterRequest = function(options) {
 				})
 			}
 		});
-	}else{
-		return 
 	}
 }
+export default $http

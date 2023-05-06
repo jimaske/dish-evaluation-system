@@ -1,7 +1,7 @@
 <template>
 	<view class="match" ref="match">
 		<van-dialog id="van-dialog" />
-
+		<van-toast id="van-toast" />
 		<view class="match-box" style="">
 			<van-sticky :offset-top="0">
 				<van-search use-action-slot @search="onSearch" @change="onChange" placeholder="请输入搜索关键词">
@@ -9,10 +9,10 @@
 				</van-search>
 			</van-sticky>
 			<view class="dishListKind" v-if="userInfo.status===2" @click="switchMatchList">
-				<view class="kind" :data-kind="2" :class="{active:kind==2}">
+				<view class="kind" :data-kind="2" :class="{active:listKind==2}">
 					我创建的
 				</view>
-				<view class="kind" :data-kind="0" :class="{active:kind==0}">
+				<view class="kind" :data-kind="0" :class="{active:listKind==0}">
 					全部
 				</view>
 			</view>
@@ -55,7 +55,7 @@
 								</view>
 
 							</view>
-							<view class="content-right btns" v-if="userInfo.status===2&&kind==2"
+							<view class="content-right btns" v-if="userInfo.status===2&&listKind==2"
 								@click.stop="editOrDelete">
 
 								<view class="edit" :data-edit="item.mid">
@@ -71,7 +71,7 @@
 				</view>
 			</scroll-view>
 		</view>
-		
+
 
 
 
@@ -95,7 +95,8 @@
 		computed,
 		reactive,
 		onMounted,
-		getCurrentInstance
+		getCurrentInstance,
+		watch
 	} from "vue"
 	import {
 		useStore
@@ -107,32 +108,49 @@
 	import {
 		Dialog
 	} from '/wxcomponents/vant/dialog/dialog';
+	import {
+		Toast
+	} from '/wxcomponents/vant/toast/toast';
+	import{
+		reqGetMatch
+	} from '../../api/index.js'
 	export default {
 		setup() {
 			let _this = getCurrentInstance();
 			let query = uni.createSelectorQuery().in(_this);
 
-			
 			onShow(async () => {
-				kind.value = userInfo.value.status
-				matchList.value = await getMatchList() || []
-				if (matchList.value.length > 0) {
-					noMatchFlag.value = true
-				} else noMatchFlag.value = false
-				getContainSize()
-
+				
 			})
-			
+			let firstGetMatchList=false
+			onLoad(async ()=>{
+				
+				// console.log(userInfo.value);
+				
+			})
 			let msgFlag = computed(() => store.state.user.msgFlag)
-
+			let listKind = ref(0)
 			const store = useStore()
 			let userInfo = computed(() => store.state.user.userInfo)
-
-			let kind = ref(userInfo.value.status)
+			watch(userInfo, async (newValue) => {
+				listKind.value = newValue.status
+				if(!firstGetMatchList&&Object.keys(newValue).length>0){
+					// console.log(newValue);
+					
+					// console.log(await getMatchList());
+					matchList.value = await getMatchList() || []
+					// console.log(matchList.value);
+					if (matchList.value.length == 0) {
+						noMatchFlag.value = true
+					} else noMatchFlag.value = false
+					getContainSize()
+					firstGetMatchList=true
+				}
+			},{immediate:true})
 
 			async function switchMatchList(e) {
 				if (typeof e.target.dataset.kind === 'number') {
-					kind.value = e.target.dataset.kind
+					listKind.value = e.target.dataset.kind
 					matchList.value = await getMatchList()
 				}
 			}
@@ -179,13 +197,15 @@
 				})
 				return list
 			}
+			//获取比赛列表
+			let page=ref(1)
 			async function getMatchList() {
 				visualData.isRequestStatus = true;
-				return uni.$http.get(`/matches?searchName=${searchName.value}&userStatus=${kind.value}`)
+				return reqGetMatch({searchName:searchName.value,userStatus:listKind.value,page:page.value}) 
 					.then((res) => {
 						if (res.data.code === 200) {
 							visualData.isRequestStatus = false;
-							let list = res.data.data.matchList
+							let list =res.data.data.matchList
 							if (userInfo.value.status == 0)
 								list = formatMatchList(list)
 							return list;
@@ -193,7 +213,6 @@
 							uni.$showMsg(res.message)
 							return false
 						}
-
 					}).catch((err) => {
 						console.log(err);
 						uni.$showMsg(err)
@@ -229,7 +248,7 @@
 									mid: dataset.delete
 								})
 								if (res.code === 200) {
-									getMatchList()
+									matchList.value =await getMatchList()
 									Toast({
 										type: 'success',
 										message: '删除成功',
@@ -300,7 +319,9 @@
 					!visualData.isRequestStatus
 				) {
 					console.log("滚动到底部，发送请求");
+					page.value++;//页数加1
 					let list = await getMatchList();
+					if(list)
 					if (list) matchList.value.push(...list);
 					console.log(matchList.value.length);
 				}
@@ -313,7 +334,7 @@
 				onSearch,
 				onChange,
 				onClick,
-				kind,
+				listKind,
 				searchName,
 				matchList,
 				noMatchFlag,
@@ -345,7 +366,7 @@
 
 	.dishListKind {
 		display: flex;
-		padding: 15rpx 15rpx 0;
+		padding: 15rpx 15rpx;
 
 		.kind {
 			padding: 5rpx 15rpx;
@@ -368,7 +389,7 @@
 	}
 
 	.matchItem {
-		margin: 15px 15rpx 0;
+		margin: 0 15rpx 15rpx;
 		padding: 15rpx 20rpx 10rpx;
 		background-color: #fff;
 		border-radius: 15rpx;

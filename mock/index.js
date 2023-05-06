@@ -1,11 +1,14 @@
 import Mock from 'better-mock/dist/mock.mp.js'
 import getHomeData from './getHomeData'
 import getMatchesData from './getMatchesData'
-import getMatchDetail from  './getMatchDetail'
 import getMatchDishes from  './getMatchDishes'
 import getMatchComments from  './getMatchComments'
 import getUser from  './getUser'
 import getMatch from  './getMatch'
+
+Mock.setup({
+    timeout: '50-100' //表示响应时间介于 50 和 100 毫秒之间。默认值是'10-100'。
+})
 
 Mock.mock('/mock/home','get',getHomeData )
 Mock.mock('/mock/matches','get',getMatch )
