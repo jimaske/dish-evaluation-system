@@ -10,6 +10,7 @@
 - 创建比赛（主办方）
 - 参加比赛（参赛方）
 - 修改个人资料
+- ...
 
 ##### 展示图片(部分)
 <div style="display:flex;width: 800px;flex-wrap: wrap; justify-content: space-between;">
